@@ -59,3 +59,380 @@ inline __attribute__((always_inline)) void linear_(
 } // namespace native
 } // namespace generic
 } // namespace impl
+
+// Forward declarations for quantized operators
+namespace impl {
+namespace generic {
+namespace native {
+
+using executorch::aten::Tensor;
+using executorch::runtime::KernelRuntimeContext;
+
+// Quantized ReLU operators
+void quantized_relu_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& input,
+    const Tensor& in_zero_point,
+    const int64_t out_zero_point,
+    const Tensor& out_multiplier,
+    const Tensor& out_shift,
+    Tensor& output);
+
+void quantized_relu_per_tensor_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& input,
+    const int64_t in_zero_point,
+    const int64_t out_zero_point,
+    const int64_t out_multiplier,
+    const int64_t out_shift,
+    Tensor& output);
+
+void quantized_relu_asym8s_asym8s_per_tensor_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& input,
+    const int64_t in_zero_point,
+    const int64_t out_zero_point,
+    const int64_t out_multiplier,
+    const int64_t out_shift,
+    Tensor& output);
+
+void quantized_relu_asym8u_asym8u_per_tensor_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& input,
+    const int64_t in_zero_point,
+    const int64_t out_zero_point,
+    const int64_t out_multiplier,
+    const int64_t out_shift,
+    Tensor& output);
+
+// Quantized Add operators
+void quantized_add_per_tensor_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& X,
+    const double X_scale,
+    const int64_t X_zero_point,
+    const Tensor& Y,
+    const double Y_scale,
+    const int64_t Y_zero_point,
+    const double out_scale,
+    const int64_t out_zero_point,
+    Tensor& output);
+
+void quantized_add_asym8sxasym8s_asym8s_per_tensor_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& X,
+    const double X_scale,
+    const int64_t X_zero_point,
+    const Tensor& Y,
+    const double Y_scale,
+    const int64_t Y_zero_point,
+    const double out_scale,
+    const int64_t out_zero_point,
+    Tensor& output);
+
+void quantized_add_asym8uxasym8u_asym8u_per_tensor_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& X,
+    const double X_scale,
+    const int64_t X_zero_point,
+    const Tensor& Y,
+    const double Y_scale,
+    const int64_t Y_zero_point,
+    const double out_scale,
+    const int64_t out_zero_point,
+    Tensor& output);
+
+// Quantized MatMul operators
+void quantized_matmul_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& X,
+    const int64_t X_zero_point,
+    const Tensor& Y,
+    const int64_t Y_zero_point,
+    const std::optional<Tensor>& bias,
+    const int64_t out_multiplier,
+    const int64_t out_shift,
+    const int64_t out_zero_point,
+    const bool transposed,
+    Tensor& output);
+
+void quantized_matmul_asym8sxasym8s_asym8s_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& X,
+    const int64_t X_zero_point,
+    const Tensor& Y,
+    const int64_t Y_zero_point,
+    const std::optional<Tensor>& bias,
+    const int64_t out_multiplier,
+    const int64_t out_shift,
+    const int64_t out_zero_point,
+    const bool transposed,
+    Tensor& output);
+
+void quantized_matmul_asym8uxasym8u_asym8u_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& X,
+    const int64_t X_zero_point,
+    const Tensor& Y,
+    const int64_t Y_zero_point,
+    const std::optional<Tensor>& bias,
+    const int64_t out_multiplier,
+    const int64_t out_shift,
+    const int64_t out_zero_point,
+    const bool transposed,
+    Tensor& output);
+
+} // namespace native
+} // namespace generic
+} // namespace impl
+// Forward declarations for quantized operators
+namespace impl {
+namespace generic {
+namespace native {
+
+using executorch::aten::Tensor;
+using executorch::runtime::KernelRuntimeContext;
+
+// Quantized ReLU operators
+void quantized_relu_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& input,
+    const Tensor& in_zero_point,
+    const int64_t out_zero_point,
+    const Tensor& out_multiplier,
+    const Tensor& out_shift,
+    Tensor& output);
+
+void quantized_relu_per_tensor_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& input,
+    const int64_t in_zero_point,
+    const int64_t out_zero_point,
+    const int64_t out_multiplier,
+    const int64_t out_shift,
+    Tensor& output);
+
+void quantized_relu_asym8s_asym8s_per_tensor_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& input,
+    const int64_t in_zero_point,
+    const int64_t out_zero_point,
+    const int64_t out_multiplier,
+    const int64_t out_shift,
+    Tensor& output);
+
+void quantized_relu_asym8u_asym8u_per_tensor_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& input,
+    const int64_t in_zero_point,
+    const int64_t out_zero_point,
+    const int64_t out_multiplier,
+    const int64_t out_shift,
+    Tensor& output);
+
+// Quantized Add operators
+void quantized_add_per_tensor_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& X,
+    const double X_scale,
+    const int64_t X_zero_point,
+    const Tensor& Y,
+    const double Y_scale,
+    const int64_t Y_zero_point,
+    const double out_scale,
+    const int64_t out_zero_point,
+    Tensor& output);
+
+void quantized_add_asym8sxasym8s_asym8s_per_tensor_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& X,
+    const double X_scale,
+    const int64_t X_zero_point,
+    const Tensor& Y,
+    const double Y_scale,
+    const int64_t Y_zero_point,
+    const double out_scale,
+    const int64_t out_zero_point,
+    Tensor& output);
+
+void quantized_add_asym8uxasym8u_asym8u_per_tensor_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& X,
+    const double X_scale,
+    const int64_t X_zero_point,
+    const Tensor& Y,
+    const double Y_scale,
+    const int64_t Y_zero_point,
+    const double out_scale,
+    const int64_t out_zero_point,
+    Tensor& output);
+
+// Quantized MatMul operators
+void quantized_matmul_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& X,
+    const int64_t X_zero_point,
+    const Tensor& Y,
+    const int64_t Y_zero_point,
+    const std::optional<Tensor>& bias,
+    const int64_t out_multiplier,
+    const int64_t out_shift,
+    const int64_t out_zero_point,
+    const bool transposed,
+    Tensor& output);
+
+void quantized_matmul_asym8sxasym8s_asym8s_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& X,
+    const int64_t X_zero_point,
+    const Tensor& Y,
+    const int64_t Y_zero_point,
+    const std::optional<Tensor>& bias,
+    const int64_t out_multiplier,
+    const int64_t out_shift,
+    const int64_t out_zero_point,
+    const bool transposed,
+    Tensor& output);
+
+void quantized_matmul_asym8uxasym8u_asym8u_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& X,
+    const int64_t X_zero_point,
+    const Tensor& Y,
+    const int64_t Y_zero_point,
+    const std::optional<Tensor>& bias,
+    const int64_t out_multiplier,
+    const int64_t out_shift,
+    const int64_t out_zero_point,
+    const bool transposed,
+    Tensor& output);
+
+} // namespace native
+} // namespace generic
+} // namespace impl
+
+// Forward declarations for quantized operators
+namespace impl {
+namespace generic {
+namespace native {
+
+using executorch::aten::Tensor;
+using executorch::runtime::KernelRuntimeContext;
+
+// Quantized ReLU operators
+void quantized_relu_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& input,
+    const Tensor& in_zero_point,
+    const int64_t out_zero_point,
+    const Tensor& out_multiplier,
+    const Tensor& out_shift,
+    Tensor& output);
+
+void quantized_relu_per_tensor_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& input,
+    const int64_t in_zero_point,
+    const int64_t out_zero_point,
+    const int64_t out_multiplier,
+    const int64_t out_shift,
+    Tensor& output);
+
+void quantized_relu_asym8s_asym8s_per_tensor_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& input,
+    const int64_t in_zero_point,
+    const int64_t out_zero_point,
+    const int64_t out_multiplier,
+    const int64_t out_shift,
+    Tensor& output);
+
+void quantized_relu_asym8u_asym8u_per_tensor_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& input,
+    const int64_t in_zero_point,
+    const int64_t out_zero_point,
+    const int64_t out_multiplier,
+    const int64_t out_shift,
+    Tensor& output);
+
+// Quantized Add operators
+void quantized_add_per_tensor_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& X,
+    const double X_scale,
+    const int64_t X_zero_point,
+    const Tensor& Y,
+    const double Y_scale,
+    const int64_t Y_zero_point,
+    const double out_scale,
+    const int64_t out_zero_point,
+    Tensor& output);
+
+void quantized_add_asym8sxasym8s_asym8s_per_tensor_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& X,
+    const double X_scale,
+    const int64_t X_zero_point,
+    const Tensor& Y,
+    const double Y_scale,
+    const int64_t Y_zero_point,
+    const double out_scale,
+    const int64_t out_zero_point,
+    Tensor& output);
+
+void quantized_add_asym8uxasym8u_asym8u_per_tensor_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& X,
+    const double X_scale,
+    const int64_t X_zero_point,
+    const Tensor& Y,
+    const double Y_scale,
+    const int64_t Y_zero_point,
+    const double out_scale,
+    const int64_t out_zero_point,
+    Tensor& output);
+
+// Quantized MatMul operators
+void quantized_matmul_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& X,
+    const int64_t X_zero_point,
+    const Tensor& Y,
+    const int64_t Y_zero_point,
+    const std::optional<Tensor>& bias,
+    const int64_t out_multiplier,
+    const int64_t out_shift,
+    const int64_t out_zero_point,
+    const bool transposed,
+    Tensor& output);
+
+void quantized_matmul_asym8sxasym8s_asym8s_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& X,
+    const int64_t X_zero_point,
+    const Tensor& Y,
+    const int64_t Y_zero_point,
+    const std::optional<Tensor>& bias,
+    const int64_t out_multiplier,
+    const int64_t out_shift,
+    const int64_t out_zero_point,
+    const bool transposed,
+    Tensor& output);
+
+void quantized_matmul_asym8uxasym8u_asym8u_out(
+    KernelRuntimeContext& ctx,
+    const Tensor& X,
+    const int64_t X_zero_point,
+    const Tensor& Y,
+    const int64_t Y_zero_point,
+    const std::optional<Tensor>& bias,
+    const int64_t out_multiplier,
+    const int64_t out_shift,
+    const int64_t out_zero_point,
+    const bool transposed,
+    Tensor& output);
+
+} // namespace native
+} // namespace generic
+} // namespace impl
